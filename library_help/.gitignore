@@ -1,38 +1,15 @@
-# 🔥 Virtual Environment
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual env
 .venv/
-venv/
-env/
 
-# 🔥 Python cache
-*/__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# 🔥 Django stuff
-db.sqlite3
-*.log
-staticfiles/
-media/
-
-# 🔥 Environment variables
+# Environment variables
 .env
 
-# 🔥 VS Code / IDE
+# Django
+db.sqlite3
+
+# VS Code
 .vscode/
-.idea/
-
-# 🔥 OS files
-.DS_Store
-Thumbs.db
-
-# 🔥 Migrations (optional - keep if team project)
-# */migrations/
-# !*/migrations/__init__.py
-
-# 🔥 Node (if you add frontend later)
-node_modules/
-
-# 🔥 Build / dist
-dist/
-build/
