@@ -1,0 +1,29 @@
+<h2>My Tickets</h2>
+
+<a href="/create-ticket/">Create Ticket</a>
+
+<form action="/logout/" method="post" style="display:inline;">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+
+<hr>
+
+{% for ticket in tickets %}
+<div style="border:1px solid black; padding:10px; margin:10px;">
+    <h3>{{ ticket.title }}</h3>
+    <p>{{ ticket.description }}</p>
+
+    <p>Status: {{ ticket.status }}</p>
+    <p>Priority: {{ ticket.priority }}</p>
+
+    {% if ticket.needs_more_info %}
+        <p style="color:red;">Admin needs more information</p>
+
+        <!-- ✅ Edit button only when needed -->
+        <a href="/edit-ticket/{{ ticket.id }}/">Edit Ticket</a>
+    {% endif %}
+
+    <p>Response: {{ ticket.admin_response }}</p>
+</div>
+{% endfor %}
