@@ -1,0 +1,38 @@
+# 🔥 Virtual Environment
+.venv/
+venv/
+env/
+
+# 🔥 Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 🔥 Django stuff
+db.sqlite3
+*.log
+staticfiles/
+media/
+
+# 🔥 Environment variables
+.env
+
+# 🔥 VS Code / IDE
+.vscode/
+.idea/
+
+# 🔥 OS files
+.DS_Store
+Thumbs.db
+
+# 🔥 Migrations (optional - keep if team project)
+# */migrations/
+# !*/migrations/__init__.py
+
+# 🔥 Node (if you add frontend later)
+node_modules/
+
+# 🔥 Build / dist
+dist/
+build/
