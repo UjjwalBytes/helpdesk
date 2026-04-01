@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Library Helpdesk{% endblock %}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- 🔵 NAVBAR -->
+<nav class="bg-blue-600 text-white p-4 flex justify-between items-center shadow">
+    <h1 class="text-lg font-bold">Library Helpdesk</h1>
+
+    <div class="space-x-4">
+        <a href="/" class="hover:underline">Home</a>
+
+        {% if user.is_authenticated %}
+            <a href="/dashboard/" class="hover:underline">Dashboard</a>
+
+            <form action="/logout/" method="post" class="inline">
+                {% csrf_token %}
+                <button class="hover:underline">Logout</button>
+            </form>
+        {% else %}
+            <a href="/login/" class="hover:underline">Login</a>
+            <a href="/register/" class="hover:underline">Register</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- 📦 MAIN CONTENT -->
+<main class="p-4">
+    {% block content %}{% endblock %}
+</main>
+
+<!-- 💬 CHAT BUTTON -->
+<div onclick="openChat()"
+     class="fixed bottom-5 right-5 bg-blue-600 text-white w-14 h-14 flex items-center justify-center rounded-full shadow-lg cursor-pointer hover:bg-blue-700">
+    💬
+</div>
+
+<!-- 💬 CHAT BOX -->
+<div id="chat-box"
+     class="hidden fixed bottom-20 right-5 w-80 bg-white rounded-xl shadow-lg flex flex-col">
+
+    <!-- Header -->
+    <div class="bg-blue-600 text-white p-3 rounded-t-xl flex justify-between">
+        Helpdesk Bot
+        <span class="cursor-pointer" onclick="openChat()">✖</span>
+    </div>
+
+    <!-- Messages -->
+    <div id="chat-body" class="p-3 h-64 overflow-y-auto text-sm space-y-2 bg-gray-50"></div>
+
+    <!-- Input -->
+    <div class="flex border-t">
+        <input id="user-input"
+               class="flex-1 p-2 outline-none"
+               placeholder="Type your message..." 
+               onkeypress="handleKey(event)" />
+
+        <button onclick="sendMessage()"
+                class="bg-blue-600 text-white px-4 hover:bg-blue-700">
+            Send
+        </button>
+    </div>
+</div>
+
+<!-- ⚡ CHAT SCRIPT -->
+<script>
+
+function openChat() {
+    const box = document.getElementById("chat-box");
+    box.classList.toggle("hidden");
+
+    if (!box.dataset.opened) {
+        addMessage("bot", "Hi 👋 How can I help you?");
+        box.dataset.opened = true;
+    }
+}
+
+function handleKey(e) {
+    if (e.key === "Enter") {
+        sendMessage();
+    }
+}
+
+function sendMessage() {
+    let input = document.getElementById("user-input");
+    let message = input.value.trim();
+
+    if (!message) return;
+
+    addMessage("user", message);
+
+    let reply = getBotReply(message);
+
+    setTimeout(() => {
+        addMessage("bot", reply);
+    }, 500);
+
+    input.value = "";
+}
+
+function addMessage(type, text) {
+    let chatBody = document.getElementById("chat-body");
+
+    let msg = document.createElement("div");
+
+    if (type === "user") {
+        msg.className = "text-right";
+        msg.innerHTML = `<span class="inline-block bg-blue-600 text-white px-3 py-1 rounded-lg">
+                            ${text}
+                        </span>`;
+    } else {
+        msg.className = "text-left";
+        msg.innerHTML = `<span class="inline-block bg-gray-200 px-3 py-1 rounded-lg">
+                            ${text}
+                        </span>`;
+    }
+
+    chatBody.appendChild(msg);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function getBotReply(message) {
+    message = message.toLowerCase();
+
+    if (message.includes("book")) {
+        return "You can issue a book from the library counter.";
+    }
+    else if (message.includes("timing")) {
+        return "Library is open from 9 AM to 5 PM.";
+    }
+    else {
+        return `I couldn't understand 😅 
+                <a href="/login/" class="text-blue-600 underline">
+                Login</a> to create a ticket.`;
+    }
+}
+
+</script>
+
+</body>
+</html>

@@ -34,7 +34,7 @@ def chatbot(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'tickets/home.html')
 
 
 # ✅ REGISTER VIEW
@@ -50,14 +50,14 @@ def register(request):
     else:
         form = RegisterForm()
 
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'tickets/register.html', {'form': form})
 
 
 # ✅ DASHBOARD
 @login_required
 def dashboard(request):
     tickets = Ticket.objects.filter(user=request.user)
-    return render(request, 'dashboard.html', {'tickets': tickets})
+    return render(request, 'tickets/dashboard.html', {'tickets': tickets})
 
 
 # ✅ CREATE TICKET
@@ -75,7 +75,7 @@ def create_ticket(request):
 
         return redirect('dashboard')
 
-    return render(request, 'create_ticket.html')
+    return render(request, 'tickets/create_ticket.html')
   
 
 
@@ -96,7 +96,7 @@ def edit_ticket(request, ticket_id):
 
         return redirect('dashboard')
 
-    return render(request, 'edit_ticket.html', {'ticket': ticket})
+    return render(request, 'tickets/edit_ticket.html', {'ticket': ticket})
 
 
 def custom_logout(request):

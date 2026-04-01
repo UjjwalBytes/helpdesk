@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Ticket{% endblock %}
+
+{% block content %}
+
+<div class="max-w-lg mx-auto mt-10 bg-white p-6 rounded-xl shadow">
+
+    <h2 class="text-2xl font-bold mb-6 text-center">Create Ticket</h2>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- Title -->
+        <div>
+            <label class="block text-sm font-medium mb-1">Title</label>
+            <input type="text" name="title"
+                   placeholder="Enter issue title"
+                   class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <!-- Description -->
+        <div>
+            <label class="block text-sm font-medium mb-1">Description</label>
+            <textarea name="description"
+                      placeholder="Describe your issue..."
+                      rows="4"
+                      class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <!-- Button -->
+        <button type="submit"
+                class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            Submit Ticket
+        </button>
+    </form>
+
+</div>
+
+{% endblock %}

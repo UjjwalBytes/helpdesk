@@ -1,0 +1,55 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<!-- your HTML here -->
+ 
+<div class="flex items-center justify-center min-h-[80vh]">
+  <div class="w-full max-w-md bg-white p-6 rounded-xl shadow">
+    <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
+
+    <form method="post" class="space-y-4">
+      {% csrf_token %}
+
+      <!-- Django Form Fields -->
+      <div class="space-y-3">
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Button -->
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+      >
+        Login
+      </button>
+    </form>
+
+    <!-- Extra Links -->
+    <p class="text-center text-sm text-gray-600 mt-4">
+      Don't have an account?
+      <a href="/register/" class="text-blue-600 hover:underline"> Register </a>
+    </p>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
